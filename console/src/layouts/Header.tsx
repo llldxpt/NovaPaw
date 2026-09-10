@@ -25,10 +25,7 @@ import {
   getFeatureDemosUrl,
   getFaqUrl,
   getReleaseNotesUrl,
-  PYPI_URL,
-  ONE_HOUR_MS,
   UPDATE_MD,
-  isStableVersion,
   compareVersions,
 } from "./constants";
 import { useTheme } from "../contexts/ThemeContext";
@@ -128,50 +125,10 @@ export default function Header() {
   };
 
   // Web-only PyPI fallback: desktop path is owned by DesktopUpdateContext.
+  // Web version update check disabled for NovaPaw distribution.
   useEffect(() => {
     if (onDesktop) return;
-
-    fetch(PYPI_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        const releases = data?.releases ?? {};
-
-        const versionsWithTime = Object.entries(releases)
-          .filter(([v]) => isStableVersion(v))
-          .map(([v, files]) => {
-            const fileList = files as Array<{ upload_time_iso_8601?: string }>;
-            const latestUpload = fileList
-              .map((f) => f.upload_time_iso_8601)
-              .filter(Boolean)
-              .sort()
-              .pop();
-            return { version: v, uploadTime: latestUpload || "" };
-          });
-
-        versionsWithTime.sort((a, b) => {
-          const timeDiff =
-            new Date(b.uploadTime).getTime() - new Date(a.uploadTime).getTime();
-          return timeDiff !== 0
-            ? timeDiff
-            : compareVersions(b.version, a.version);
-        });
-
-        const versions = versionsWithTime.map((v) => v.version);
-        const latest = versions[0] ?? data?.info?.version ?? "";
-
-        const releaseTime = versionsWithTime.find((v) => v.version === latest)
-          ?.uploadTime;
-        const isOldEnough =
-          !!releaseTime &&
-          new Date(releaseTime) <= new Date(Date.now() - ONE_HOUR_MS);
-
-        if (isOldEnough) {
-          setLatestVersion(latest);
-        } else {
-          setLatestVersion("");
-        }
-      })
-      .catch(() => {});
+    setLatestVersion("");
   }, [onDesktop]);
 
   const hasUpdate = onDesktop
@@ -351,8 +308,8 @@ export default function Header() {
           */}
           <Slot name="header.logo" kind="replace">
             <img
-              src={isDark ? "/logo-dark.svg" : "/logo-light.svg"}
-              alt="QwenPaw"
+              src={isDark ? "/logo-dark.png" : "/logo-light.png"}
+              alt="NovaPaw"
               className={styles.logoImg}
             />
           </Slot>

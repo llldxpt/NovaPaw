@@ -513,7 +513,7 @@ NOVA_AI_MODELS: List[ModelInfo] = [
 
 PROVIDER_NOVA_AI = OpenAIProvider(
     id="nova-ai",
-    name="Nova AI",
+    name="Nova AI (本地)",
     is_local=True,
     base_url="http://127.0.0.1:1234/v1",
     api_key="",
@@ -526,7 +526,7 @@ PROVIDER_NOVA_AI = OpenAIProvider(
 
 PROVIDER_NOVA_AI_CLUSTER = OpenAIProvider(
     id="nova-ai-cluster",
-    name="Nova AI (Cluster)",
+    name="Nova AI (集群)",
     is_local=True,
     base_url="http://127.0.0.1:15050/v1",
     api_key="",
@@ -534,6 +534,28 @@ PROVIDER_NOVA_AI_CLUSTER = OpenAIProvider(
     models=NOVA_AI_MODELS,
     freeze_url=True,
     require_api_key=False,
+    support_connection_check=True,
+)
+
+PROVIDER_NOVA_AI_API = OpenAIProvider(
+    id="nova-ai-api",
+    name="Nova AI (API)",
+    base_url="https://api.firstarpc.com/v1",
+    api_key_prefix="",
+    models=NOVA_AI_MODELS,
+    freeze_url=True,
+    require_api_key=True,
+    support_connection_check=True,
+)
+
+PROVIDER_NOVA_AI_TOKEN_PLAN = OpenAIProvider(
+    id="nova-ai-token-plan",
+    name="Nova AI (Token Plan)",
+    base_url="https://api.firstarpc.com/v1",
+    api_key_prefix="",
+    models=NOVA_AI_MODELS,
+    freeze_url=True,
+    require_api_key=True,
     support_connection_check=True,
 )
 
@@ -554,6 +576,8 @@ PROVIDER_MIMO = MiMoProvider(
 BUILTIN_PROVIDERS: tuple[Provider, ...] = (
     PROVIDER_NOVA_AI,
     PROVIDER_NOVA_AI_CLUSTER,
+    PROVIDER_NOVA_AI_API,
+    PROVIDER_NOVA_AI_TOKEN_PLAN,
     PROVIDER_OLLAMA,
     PROVIDER_LMSTUDIO,
     PROVIDER_OPENROUTER,
@@ -673,6 +697,8 @@ __all__ = [
     "PROVIDER_OPENROUTER",
     "PROVIDER_NOVA_AI",
     "PROVIDER_NOVA_AI_CLUSTER",
+    "PROVIDER_NOVA_AI_API",
+    "PROVIDER_NOVA_AI_TOKEN_PLAN",
     "PROVIDER_SILICONFLOW_CN",
     "PROVIDER_SILICONFLOW_INTL",
     "PROVIDER_VOLCENGINE_CN",

@@ -58,6 +58,18 @@ BUILTIN_DISCOVERY_POLICIES: dict[str, ProviderDiscoveryPolicy] = {
         requires_auth=False,
         reason="Local Nova AI Cluster models are statically defined.",
     ),
+    "nova-ai-api": ProviderDiscoveryPolicy(
+        "unsupported",
+        sync_mode="disabled",
+        requires_auth=True,
+        reason="Online Nova AI models are statically defined.",
+    ),
+    "nova-ai-token-plan": ProviderDiscoveryPolicy(
+        "unsupported",
+        sync_mode="disabled",
+        requires_auth=True,
+        reason="Online Nova AI Token Plan models are statically defined.",
+    ),
     "novapaw-local": ProviderDiscoveryPolicy(
         "unsupported",
         sync_mode="disabled",
