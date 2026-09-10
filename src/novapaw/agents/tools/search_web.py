@@ -25,6 +25,11 @@ _CATEGORY_MAP = {
 
 
 @tool_descriptor(
+    tool_type="network",
+    target_param="query",
+    policy_name="SearxngSearch",
+    default_policy="allow",
+    policy_reason="Allow local SearXNG web search",
     ui_description="Search the web via local SearXNG meta-search engine",
     ui_icon="🔎",
 )

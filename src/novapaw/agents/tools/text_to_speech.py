@@ -17,6 +17,11 @@ _TIMEOUT = 60.0
 
 
 @tool_descriptor(
+    tool_type="network",
+    target_param="text",
+    policy_name="TextToSpeech",
+    default_policy="allow",
+    policy_reason="Allow local NovaMax TTS synthesis",
     ui_description="Convert text to speech via local NovaMax TTS engine",
     ui_icon="🔊",
 )
