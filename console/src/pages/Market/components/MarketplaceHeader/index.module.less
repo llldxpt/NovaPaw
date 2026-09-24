@@ -1,0 +1,22 @@
+.sectionSwitch {
+  margin-bottom: 0 !important;
+  align-self: center !important;
+}
+
+@media (max-width: 768px) {
+  .sectionSwitch {
+    width: 100%;
+
+    :global(.ant-segmented-group),
+    :global(.novapaw-segmented-group) {
+      width: 100%;
+    }
+
+    :global(.ant-segmented-item),
+    :global(.novapaw-segmented-item) {
+      min-width: 0;
+      flex: 1;
+      text-align: center;
+    }
+  }
+}
